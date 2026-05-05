@@ -7,6 +7,22 @@
 <html>
 	<head>
 		<title>Innocent's Portfolio</title>
+
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
+
+<style id="custom-lightbox-style">
+/* Make the popup smaller and centered */
+.lightbox .lb-image {
+    max-width: 80vw;   /* width ~ 80% of screen */
+    max-height: 80vh;  /* height ~ 80% of screen */
+}
+
+/* Reduce dark background so page is still visible */
+.lightboxOverlay {
+    background: rgba(0, 0, 0, 0.5); /* lighter overlay */
+}
+</style>
+
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -64,16 +80,28 @@
 							<article class="post featured">
 								<header class="major">
 									<span class="date">WELCOME</span>
-									<h2><a href="#">About Me<br />
+									<h2><a href="https://medium.com/@anyanwuochacollinschibuike/anyanwuocha-collins-chibuike-innocent-biography-5241123ecaaa">About Me<br />
 									</a></h2>
 									<p>Innocent is a Mechatronics Engineering student passionate about robotics, 3D modeling, and electronics, specializing in mechanical CAD and simulation. <br />
 									Skilled in PCB design, Arduino, C++, Python, and machine learning, creating integrated hardware-software solutions.<br />
 									</p>
 								</header>
-								<a href="#" class="image main"><img src="pics to use in website/IMG-20260203-WA0065(1)(1).jpg" alt="" /></a>
-								<ul class="actions special">
-									<li><a href="https://medium.com/@anyanwuochacollinschibuike/anyanwuocha-collins-chibuike-innocent-biography-5241123ecaaa" class="button large">Full Bio On Medium</a></li>
-								</ul>
+								<a href="pics to use in website/IMG-20260203-WA0065(1)(1).jpg" 
+   class="image main" 
+   data-lightbox="gallery"
+   data-title="My Profile Image">
+    
+    <img src="pics to use in website/IMG-20260203-WA0065(1)(1).jpg" alt="" />
+</a>
+
+<ul class="actions special">
+    <li>
+        <a href="https://medium.com/@anyanwuochacollinschibuike/anyanwuocha-collins-chibuike-innocent-biography-5241123ecaaa" 
+           class="button large">
+           Full Bio On Medium
+        </a>
+    </li>
+</ul>
 							</article>
 
 						<!-- Posts -->
@@ -81,22 +109,43 @@
 								<article>
 									<header>
 										<span class="date">June 17, 2025</span>
-										<h2><a href="#">Design and Structural Simulation of an FPV Drone Frame<br />
-										</a></h2>
+										<h2>Design and Structural Simulation of an FPV Drone Frame<br />
+										</h2>
 									</header>
-									<a href="#" class="image fit"><img src="pics to use in website/FPV Drone Frame(1).png" alt="" /></a>
-									<p>This Project involves the design and simulation of an FPV drone. This was done in reference to an already existing FPV Drone, but customizations and upgrades have been made for better performance.</p>
-									<ul class="actions special">
-										<li><a href="https://laser-stone-812.notion.site/DESIGN-AND-STRUCTURAL-SIMULATION-OF-AN-FPV-DRONE-FRAME-34a1dcb93934807ab74ad3913485b9db?source=copy_link" class="button">View Full Project</a></li>
-									</ul>
+									<a href="pics to use in website/FPV Drone Frame(1).png" 
+   class="image fit" 
+   data-lightbox="projects"
+   data-title="FPV Drone Frame Design">
+
+    <img src="pics to use in website/FPV Drone Frame(1).png" alt="" />
+</a>
+
+<p>
+This Project involves the design and simulation of an FPV drone. This was done in reference to an already existing FPV Drone, but customizations and upgrades have been made for better performance.
+</p>
+
+<ul class="actions special">
+    <li>
+        <a href="https://laser-stone-812.notion.site/DESIGN-AND-STRUCTURAL-SIMULATION-OF-AN-FPV-DRONE-FRAME-34a1dcb93934807ab74ad3913485b9db?source=copy_link" 
+           class="button">
+           View Full Project
+        </a>
+    </li>
+</ul>
 								</article>
 								<article>
 									<header>
 										<span class="date">August 29, 2025</span>
-										<h2><a href="#">V6 Engine<br />
-										Assembly</a></h2>
+										<h2>V6 Engine<br />
+										Assembly</h2>
 									</header>
-									<a href="#" class="image fit"><img src="pics to use in website/Engine Render.png" alt="" /></a>
+									<a href="pics to use in website/Engine Render.png" 
+   class="image fit" 
+   data-lightbox="projects"
+   data-title="V6 Engine Assembly">
+
+    <img src="pics to use in website/Engine Render.png" alt="" />
+</a>
 									<p>Designed and assembled a detailed V6 internal combustion engine model, demonstrating an understanding of engine architecture, component interaction, and mechanical motion through precise CAD modeling. with integrated motion simulation to demonstrate piston and crankshaft movement.</p>
 									<ul class="actions special">
 										<li><a href="https://laser-stone-812.notion.site/DESIGN-AND-ASSEMBLY-OF-V6-COMBUSTION-ENGINE-3521dcb9393480ac822ff74b5cb21cf3?source=copy_link" class="button">View Full Project</a></li>
@@ -105,10 +154,16 @@
 								<article>
 									<header>
 										<span class="date">October 19, 2025</span>
-										<h2><a href="#">DESIGN AND ANALYSIS OF SOUND AMPLIFICATION PCB FOR MP SPEAKERS<br />
-										</a></h2>
+										<h2>DESIGN AND ANALYSIS OF SOUND AMPLIFICATION PCB FOR MP SPEAKERS<br />
+										</h2>
 									</header>
-									<a href="#" class="image fit"><img src="pics to use in website/sound amplifying pcb cover.png" alt="" /></a>
+									<a href="pics to use in website/sound amplifying pcb cover.png" 
+   class="image fit" 
+   data-lightbox="projects"
+   data-title="Sound Amplification PCB">
+
+    <img src="pics to use in website/sound amplifying pcb cover.png" alt="" />
+</a>
 									<p>Designed and implemented a sound amplification PCB for media systems, integrating amplifier circuitry with optimized component placement and circuit design principles to achieve efficient signal amplification and improved audio output performance.</p>
 									<ul class="actions special">
 										<li><a href="https://laser-stone-812.notion.site/DESIGN-AND-ANALYSIS-OF-SOUND-AMPLIFICATION-PCB-FOR-MP-SPEAKERS-3521dcb93934801bad90e4a665aec7d5?source=copy_link" class="button">View Full Project</a></li>
@@ -155,8 +210,8 @@
 						<section class="split contact">
 							<section class="alt">
 								<h3>Address</h3>
-								<p>NO 49 Keedan Road Nkworji<br />
-								Owerri, Imo state, Nigeria</p>
+								<p>Owerri, Imo state, Nigeria<br />
+								</p>
 							</section>
 							<section>
 								<h3>Phone</h3>
@@ -197,6 +252,16 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+
+<script id="lightbox-settings">
+lightbox.option({
+  'resizeDuration': 200,
+  'wrapAround': true,
+  'fitImagesInViewport': true
+})
+</script>
 
 	</body>
 </html>
