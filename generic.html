@@ -8,20 +8,333 @@
 	<head>
 		<title>certificates</title>
 
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
+		<style>
+    .experience-item {
+      padding: 20px;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
 
-<style id="custom-lightbox-style">
-/* Make the popup smaller and centered */
-.lightbox .lb-image {
-    max-width: 80vw;   /* width ~ 80% of screen */
-    max-height: 80vh;  /* height ~ 80% of screen */
+    .experience-item h2 {
+      margin-bottom: 5px;
+    }
+
+    .experience-item h4 {
+      margin: 0 0 10px 0;
+      color: gray;
+    }
+
+	.meta p {
+  		margin: 0px 0;
+	}
+  </style>
+
+		<style>
+/* ================================
+   CERTIFICATE GRID
+================================ */
+
+.certificate-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 25px;
+    align-items: start;
 }
 
-/* Reduce dark background so page is still visible */
-.lightboxOverlay {
-    background: rgba(0, 0, 0, 0.5); /* lighter overlay */
+.certificate-grid article {
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Hide certificate information on main page */
+/* Hide only the certificate title */
+.certificate-grid article header.major h2 {
+    display: none !important;
+}
+
+/* Show the certificate date */
+.certificate-grid article header.major {
+    display: block !important;
+    margin-bottom: 15px !important;
+}
+
+/* Make sure the date itself is visible */
+.certificate-grid article header.major .date {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Hide the description */
+.certificate-grid article > p {
+    display: none !important;
+}
+
+/* Certificate image */
+.certificate-grid article .image.fit {
+    display: block;
+    margin: 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.certificate-grid article .image.fit img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+
+/* ================================
+   CERTIFICATE POPUP
+================================ */
+
+.certificate-modal {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.35);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.certificate-modal.active {
+    display: flex;
+}
+
+/* Main popup box */
+.certificate-modal-content {
+    position: relative;
+
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+
+    background: #ffffff;
+
+    display: flex;
+    align-items: center;
+
+    padding: 35px;
+    box-sizing: border-box;
+
+    border-radius: 8px;
+
+    overflow: auto;
+}
+
+
+/* Left side - certificate */
+.certificate-modal-image {
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 35px;
+    box-sizing: border-box;
+}
+
+.certificate-modal-image img {
+    max-width: 100%;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    display: block;
+}
+
+
+/* Right side - information */
+.certificate-modal-info {
+    width: 45%;
+    padding-left: 35px;
+    box-sizing: border-box;
+
+    border-left: 1px solid #ddd;
+}
+
+.certificate-modal-info .modal-date {
+    display: block;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    color: #888;
+
+    margin-bottom: 10px;
+}
+
+.certificate-modal-info h2 {
+    margin-bottom: 20px;
+}
+
+.certificate-modal-info p {
+    line-height: 1.7;
+}
+
+
+/* Close button */
+.certificate-modal-close {
+    position: absolute;
+
+    top: 10px;
+    right: 18px;
+
+    font-size: 30px;
+    font-weight: bold;
+
+    color: #555;
+
+    cursor: pointer;
+
+    z-index: 10;
+}
+
+.certificate-modal-close:hover {
+    color: #000;
+}
+
+/* =================================
+   FULLSCREEN CERTIFICATE VIEW
+================================= */
+
+.certificate-fullscreen {
+    display: none;
+    position: fixed;
+    z-index: 100000;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.35);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+    box-sizing: border-box;
+
+    cursor: zoom-out;
+}
+
+.certificate-fullscreen.active {
+    display: flex;
+}
+
+.certificate-fullscreen img {
+    max-width: 90vw;
+    max-height: 90vh;
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+
+    display: block;
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+
+    cursor: zoom-out;
+}
+
+/* ================================
+   TABLET
+================================ */
+
+@media screen and (max-width: 980px) {
+
+    .certificate-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .certificate-modal-content {
+        width: 95%;
+        padding: 25px;
+    }
+
+    .certificate-modal-image {
+        padding-right: 20px;
+    }
+
+    .certificate-modal-info {
+        padding-left: 20px;
+    }
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media screen and (max-width: 736px) {
+
+    .certificate-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .certificate-modal {
+        padding: 15px;
+    }
+
+    .certificate-modal-content {
+        width: 100%;
+        max-height: 95vh;
+
+        flex-direction: column;
+
+        padding: 25px 20px;
+    }
+
+    .certificate-modal-image {
+        width: 100%;
+        padding: 0 0 25px 0;
+    }
+
+    .certificate-modal-image img {
+        max-width: 100%;
+        max-height: 55vh;
+    }
+
+    .certificate-modal-info {
+        width: 100%;
+        padding: 25px 0 0 0;
+
+        border-left: none;
+        border-top: 1px solid #ddd;
+    }
+
+    .certificate-modal-close {
+        top: 5px;
+        right: 12px;
+    }
 }
 </style>
+
+
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -135,124 +448,241 @@
 						<!-- Post -->
 						 	<section class="certificate-grid">
 								<article>
-									<header class="major">
-										<span class="date">18 July 2026</span>
-										<h2>AUTODESK DESIGNATHON 2026</h2>
-									</header>
-									<a href="pics to use in website/Certificate/658219.jpg"
-									class="image fit" 
-   									data-lightbox="projects"
-   									data-title="AUTODESK DESIGNATHON 2026">
+    <div class="experience-item">
 
-    								<img src="pics to use in website/Certificate/658219.jpg" alt="" />
-									</a>
-									<p>
-									I participated in the Autodesk Designathon 2026, a global competition that challenges participants to design innovative solutions using Autodesk software. This experience allowed me to apply my skills in design and engineering to real-world problems, collaborate with a diverse team, and gain valuable insights into the design process. The competition provided an opportunity to showcase creativity, technical expertise, and problem-solving abilities while competing against talented individuals from around the world.
-									</p>
+        <a href="#"
+           class="image fit certificate-trigger"
+           data-image="pics to use in website/Certificate/658219.jpg"
+           data-title="AUTODESK DESIGNATHON 2026"
+           data-date="18 July 2026"
+           data-description="I participated in the Autodesk Designathon 2026, a global competition that challenges participants to design innovative solutions using Autodesk software. This experience allowed me to apply my skills in design and engineering to real-world problems, collaborate with a diverse team, and gain valuable insights into the design process. The competition provided an opportunity to showcase creativity, technical expertise, and problem-solving abilities while competing against talented individuals from around the world.">
+
+            <img src="pics to use in website/Certificate/658219.jpg"
+                 alt="AUTODESK DESIGNATHON 2026" />
+
+        </a>
+
+        <span class="certificate-date">18 July 2026</span>
+
+    </div>
+</article>
+
+								<article>
+									<div class="experience-item">
+
+    <a href="#"
+       class="image fit certificate-trigger"
+       data-image="pics to use in website/Certificate/496381.jpg"
+       data-title="ASHRAE STUDENT MEMBERSHIP"
+       data-date="1 June 2026"
+       data-description="I am proud to be a member of the American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE), which is dedicated to advancing the arts and sciences of heating, ventilation, air conditioning, and refrigeration. As a member, I have access to a wealth of resources, including technical publications, conferences, and networking opportunities with professionals in the field. This membership allows me to stay updated on the latest advancements in HVAC&R technology, while also providing a platform for collaboration and professional development within the HVAC&R community.">
+
+        <img src="pics to use in website/Certificate/496381.jpg"
+             alt="ASHRAE STUDENT MEMBERSHIP" />
+
+    </a>
+
+	<span class="certificate-date">1 June 2026</span>
+	</div>
+
+								</article>
+
+								<article>
+									<div class="experience-item">
+
+    <a href="#"
+       class="image fit certificate-trigger"
+       data-image="pics to use in website/Certificate/Screenshot 2026-08-23 061302.png"
+       data-title="OVERVIEW OF ANSYS SCADE ONE SOFTWARE"
+       data-date="9 May 2026"
+       data-description="I completed the 'Overview of ANSYS SCADE One Software' course, which provided me with a comprehensive understanding of the ANSYS SCADE One software and its applications in model-based design and development. This course covered essential topics such as model creation, simulation, code generation, and verification. Through hands-on exercises and practical examples, I gained valuable skills in using SCADE One for developing safety-critical embedded systems. This experience has enhanced my knowledge of model-based design methodologies and has equipped me with the tools to effectively utilize ANSYS SCADE One in engineering projects.">
+
+        <img src="pics to use in website/Certificate/Screenshot 2026-08-23 061302.png"
+             alt="OVERVIEW OF ANSYS SCADE ONE SOFTWARE" />
+
+    </a>
+	<span class="certificate-date">9 May 2026</span>
+									</div>
+								</article>
+
+								<article>
+									<div class="experience-item">
+
+    <a href="#"
+       class="image fit certificate-trigger"
+       data-image="pics to use in website/Certificate/396649.jpg"
+       data-title="IEEE Robotics And Automation Society (RAS) Membership"
+       data-date="1 May 2026"
+       data-description="I am proud to be a member of the IEEE Robotics and Automation Society (RAS), which is dedicated to advancing the field of robotics and automation. As a member, I have access to a wealth of resources, including technical publications, conferences, and networking opportunities with professionals in the field. This membership allows me to stay updated on the latest advancements in robotics, automation, and related technologies, while also providing a platform for collaboration and professional development within the robotics community.">
+
+        <img src="pics to use in website/Certificate/396649.jpg"
+             alt="IEEE Robotics And Automation Society (RAS) Membership" />
+
+    </a>
+	<span class="certificate-date">1 May 2026</span>
+								</div>
+								</article>
+
+								<article>
+									<div class="experience-item">
+
+    <a href="#"
+       class="image fit certificate-trigger"
+       data-image="pics to use in website/Certificate/396645.jpg"
+       data-title="IEEE Industry Applications Society(IAS) Membership"
+       data-date="1 May 2026"
+       data-description="I am proud to be a member of the IEEE Industry Applications Society (IAS), which is dedicated to advancing the application of electrical and electronic engineering in industrial systems. As a member, I have access to a wealth of resources, including technical publications, conferences, and networking opportunities with professionals in the field. This membership allows me to stay updated on the latest advancements in power systems, electrical machines, automation, and industrial drives, while also providing a platform for collaboration and professional development within the industry-focused technology community.">
+
+        <img src="pics to use in website/Certificate/396645.jpg"
+             alt="IEEE Industry Applications Society (IAS) Membership" />
+
+    </a>
+	<span class="certificate-date">1 May 2026</span>
+									</div>
+								</article>
+
+								<article>
+									<div class="experience-item">
+
+    <a href="#"
+       class="image fit certificate-trigger"
+       data-image="pics to use in website/Certificate/396651.jpg"
+       data-title="IEEE Women in Engineering(WIE) Membership"
+       data-date="1 May 2026"
+       data-description="I am proud to be a member of the IEEE Women in Engineering (WIE), which is dedicated to promoting women in engineering and technology. As a member, I have access to a wealth of resources, including technical publications, conferences, and networking opportunities with professionals in the field. This membership allows me to stay updated on the latest advancements in power systems, electrical machines, automation, and industrial drives, while also providing a platform for collaboration and professional development within the industry-focused technology community.">
+
+        <img src="pics to use in website/Certificate/396651.jpg"
+             alt="IEEE Women in Engineering (WIE) Membership" />
+
+    </a>
+	<span class="certificate-date">1 May 2026</span>
+									</div>
+								</article>
+							
+								<article>
+									<div class="experience-item">
+
+    <a href="#"
+       class="image fit certificate-trigger"
+       data-image="pics to use in website/Certificate/396647.jpg"
+       data-title="IEEE Membership"
+       data-date="1 May 2026"
+       data-description="I am proud to be a member of the IEEE, which is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity. As a member, I have access to a wealth of resources, including technical publications, conferences, and networking opportunities with professionals in the field. This membership allows me to stay updated on the latest advancements in power systems, electrical machines, automation, and industrial drives, while also providing a platform for collaboration and professional development within the industry-focused technology community.">
+
+        <img src="pics to use in website/Certificate/396647.jpg"
+             alt="IEEE Membership" />
+
+    </a>
+	<span class="certificate-date">1 May 2026</span>
+									</div>
+								</article>
+							
+								<article>
+									<div class="experience-item">
+    <a href="#"
+       class="image fit certificate-trigger"
+       data-image="pics to use in website/Certificate/Screenshot 2026-08-23 061236.png"
+       data-title="INTRO TO ANSYS FLUENT"
+       data-date="6 November 2025"
+       data-description="I completed the 'Intro to ANSYS Fluent' course, which provided me with a comprehensive understanding of computational fluid dynamics (CFD) and the use of ANSYS Fluent software for simulating fluid flow and heat transfer. This course covered essential topics such as meshing, boundary conditions, solver settings, and post-processing techniques. Through hands-on exercises and practical examples, I gained valuable skills in setting up simulations, analyzing results, and interpreting data. This experience has enhanced my knowledge of fluid mechanics and has equipped me with the tools to perform effective CFD analysis in engineering applications.">
+
+        <img src="pics to use in website/Certificate/Screenshot 2026-08-23 061236.png"
+             alt="INTRO TO ANSYS FLUENT" />
+
+    </a>
+	<span class="certificate-date">6 November 2025</span>
+									</div>
 								</article>
 								
 								<article>
-									<header class="major">
-										<span class="date">7 June 2026</span>
-										<h2>ASHRAE STUDENT MEMBERSHIP</h2>
-									</header>
-									<a href="pics to use in website/Certificate/496381.jpg"
-									class="image fit" 
-   									data-lightbox="projects"
-   									data-title="ASHRAE STUDENT MEMBERSHIP">
+									<div class="experience-item">
 
-    								<img src="pics to use in website/Certificate/496381.jpg" alt="" />
-									</a>
-									<p>
-									I am proud to be a member of the American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE), which is dedicated to advancing the arts and sciences of heating, ventilation, air conditioning, and refrigeration. As a member, I have access to a wealth of resources, including technical publications, conferences, and networking opportunities with professionals in the field. This membership allows me to stay updated on the latest advancements in HVAC&R technology, while also providing a platform for collaboration and professional development within the HVAC&R community.
-									</p>
-								</article>
-							
-								<article>
-									<header class="major">
-										<span class="date">1 May 2026</span>
-										<h2>IEEE Robotics And Automation Society (RAS) Membership</h2>
-									</header>
-									<a href="pics to use in website/Certificate/396649.jpg"
-									class="image fit" 
-   									data-lightbox="projects"
-   									data-title="IEEE Robotics And Automation Society (RAS) Membership">
+    <a href="#"
+       class="image fit certificate-trigger"
+       data-image="pics to use in website/Certificate/Screenshot 2026-08-23 061218.png"
+       data-title="STRESS ANALYSIS IN SOLID MECHANICS"
+       data-date="6 November 2025"
+       data-description="I completed the 'Stress Analysis in Solid Mechanics' course, which provided me with a comprehensive understanding of stress analysis principles and techniques in solid mechanics. This course covered essential topics such as stress-strain relationships, material properties, and failure criteria. Through hands-on exercises and practical examples, I gained valuable skills in analyzing stress distributions, evaluating structural integrity, and applying theoretical concepts to real-world engineering problems. This experience has enhanced my knowledge of solid mechanics and has equipped me with the tools to perform effective stress analysis in engineering applications.">
 
-    								<img src="pics to use in website/Certificate/396649.jpg" alt="" />
-									</a>
-									<p>
-									I am proud to be a member of the IEEE Robotics and Automation Society (RAS), which is dedicated to advancing the field of robotics and automation. As a member, I have access to a wealth of resources, including technical publications, conferences, and networking opportunities with professionals in the field. This membership allows me to stay updated on the latest advancements in robotics, automation, and related technologies, while also providing a platform for collaboration and professional development within the robotics community.
-									</p>
+        <img src="pics to use in website/Certificate/Screenshot 2026-08-23 061218.png"
+             alt="STRESS ANALYSIS IN SOLID MECHANICS" />
+
+    </a>
+	<span class="certificate-date">6 November 2025</span>
+								</div>
 								</article>
 
 								<article>
-									<header class="major">
-										<span class="date">1 May 2026</span>
-										<h2>IEEE Industry Applications Society(IAS) Membership</h2>
-									</header>
-									<a href="pics to use in website/Certificate/396645.jpg"
-									class="image fit" 
-   									data-lightbox="projects"
-   									data-title="IEEE Industry Applications Society (IAS) Membership">
+									<div class="experience-item">
 
-    								<img src="pics to use in website/Certificate/396645.jpg" alt="" />
-									</a>
-									<p>
-									I am proud to be a member of the IEEE Industry Applications Society (IAS), which is dedicated to advancing the application of electrical and electronic engineering in industrial systems. As a member, I have access to a wealth of resources, including technical publications, conferences, and networking opportunities with professionals in the field. This membership allows me to stay updated on the latest advancements in power systems, electrical machines, automation, and industrial drives, while also providing a platform for collaboration and professional development within the industry-focused technology community.
-									</p>
-								</article>
-							
-								<article>
-									<header class="major">
-										<span class="date">1 May 2026</span>
-										<h2>IEEE Women in Engineering(WIE) Membership</h2>
-									</header>
-									<a href="pics to use in website/Certificate/396651.jpg"
-									class="image fit" 
-   									data-lightbox="projects"
-   									data-title="IEEE Women in Engineering (WIE) Membership">
+    <a href="#"
+       class="image fit certificate-trigger"
+       data-image="pics to use in website/Certificate/Screenshot 2026-08-23 061157.png"
+       data-title="GETTING STARTED WITH ANSYS MECHANICAL"
+       data-date="6 November 2025"
+       data-description="I completed the 'Getting Started with ANSYS Mechanical' course, which provided me with a comprehensive understanding of the fundamentals of finite element analysis using ANSYS Mechanical. This course covered essential topics such as model creation, meshing, boundary conditions, and solution setup. Through hands-on exercises and practical examples, I gained valuable skills in setting up and solving engineering problems using ANSYS Mechanical. This experience has enhanced my knowledge of computational engineering and has equipped me with the tools to perform effective finite element analysis in engineering applications.">
 
-    								<img src="pics to use in website/Certificate/396651.jpg" alt="" />
-									</a>
-									<p>
-									WIE is the largest international professional organization dedicated to promoting women in engineering and technology. It provides a global network of support and resources for women in engineering, including mentorship, networking opportunities, and professional development programs. WIE also works to raise awareness of the contributions of women in engineering and technology.
-									</p>
-								</article>
-							
-								<article>
-									<header class="major">
-										<span class="date">1 May 2026</span>
-										<h2>IEEE Membership</h2>
-									</header>
-									<a href="pics to use in website/Certificate/396647.jpg"
-									class="image fit" 
-   									data-lightbox="projects"
-   									data-title="IEEE Membership">
+        <img src="pics to use in website/Certificate/Screenshot 2026-08-23 061157.png"
+             alt="GETTING STARTED WITH ANSYS MECHANICAL" />
 
-    								<img src="pics to use in website/Certificate/396647.jpg" alt="" />
-									</a>
-									<p>
-									The IEEE is a professional association for electronic engineering and electrical engineering (and associated disciplines) with its corporate office in New York City and its operations center in Piscataway, New Jersey. It was formed in 1963 from the amalgamation of the American Institute of Electrical Engineers and the Institute of Radio Engineers. The IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity.
-									</p>
+    </a>
+	<span class="certificate-date">6 November 2025</span>
+									</div>
 								</article>
-							
+
 								<article>
-									<header class="major">
-										<span class="date">6 December 2024</span>
-										<h2>MATLAB Onramp</h2>
-									</header>
-									<a href="pics to use in website/Certificate/403744.jpg"
-									class="image fit" 
-   									data-lightbox="projects"
-   									data-title="MATLAB Onramp Certification">
-    								<img src="pics to use in website/Certificate/403744.jpg" alt="" />
-									</a>
-									<p>
-									Matlab onramp is a free, interactive tutorial that teaches you the basics of MATLAB. It covers topics such as variables, arrays, functions, and plotting. The tutorial is designed for beginners and can be completed in about two hours.
-									</p>
+									<div class="experience-item">
+
+    <a href="#"
+       class="image fit certificate-trigger"
+       data-image="pics to use in website/Certificate/403744.jpg"
+       data-title="MATLAB ONRAMP"
+       data-date="6 November 2025"
+       data-description="I completed the 'MATLAB Onramp' course, which provided me with a comprehensive understanding of the fundamentals of MATLAB programming. This course covered essential topics such as variables, arrays, functions, and plotting. Through hands-on exercises and practical examples, I gained valuable skills in setting up and solving engineering problems using MATLAB. This experience has enhanced my knowledge of computational engineering and has equipped me with the tools to perform effective finite element analysis in engineering applications.">
+
+        <img src="pics to use in website/Certificate/403744.jpg"
+             alt="MATLAB ONRAMP" />
+
+    </a>
+	<span class="certificate-date">6 November 2025</span>
+									</div>
 								</article>
 							</section>
-						
+
+							<!-- Certificate Popup -->
+							<div id="certificateModal" class="certificate-modal">
+
+								<div class="certificate-modal-content">
+
+									<span class="certificate-modal-close">&times;</span>
+
+									<div class="certificate-modal-image">
+										<img id="modalCertificateImage" src="" alt="">
+									</div>
+
+									<div class="certificate-modal-info">
+
+										<span id="modalCertificateDate"
+											class="modal-date">
+										</span>
+
+										<h2 id="modalCertificateTitle"></h2>
+
+										<p id="modalCertificateDescription"></p>
+
+									</div>
+
+								</div>
+
+							</div>
+							
+							<!-- Fullscreen Certificate -->
+<div id="certificateFullscreen" class="certificate-fullscreen">
+
+    <img id="fullscreenCertificateImage" src="" alt="">
+
+</div>
+
 						<!-- Footer -->
 							<footer>
 								<div class="pagination">
@@ -270,6 +700,13 @@
 							</footer>
 
 					</div>
+
+					<!-- Fullscreen Certificate -->
+<div id="certificateFullscreen" class="certificate-fullscreen">
+
+    <img id="fullscreenCertificateImage" src="" alt="">
+
+</div>
 
 				<!-- Footer -->
 					<footer id="footer">
@@ -341,7 +778,6 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
 
 <script id="lightbox-settings">
 lightbox.option({
@@ -351,5 +787,166 @@ lightbox.option({
 })
 </script>
 
+	<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* ================================
+       MAIN CERTIFICATE MODAL
+    ================================= */
+
+    const modal =
+        document.getElementById("certificateModal");
+
+    const modalImage =
+        document.getElementById("modalCertificateImage");
+
+    const modalTitle =
+        document.getElementById("modalCertificateTitle");
+
+    const modalDate =
+        document.getElementById("modalCertificateDate");
+
+    const modalDescription =
+        document.getElementById("modalCertificateDescription");
+
+    const closeButton =
+        document.querySelector(".certificate-modal-close");
+
+
+    /* ================================
+       FULLSCREEN CERTIFICATE
+    ================================= */
+
+    const fullscreen =
+        document.getElementById("certificateFullscreen");
+
+    const fullscreenImage =
+        document.getElementById("fullscreenCertificateImage");
+
+
+    /* ================================
+       OPEN CERTIFICATE MODAL
+    ================================= */
+
+    document.querySelectorAll(".certificate-trigger").forEach(function (certificate) {
+
+        certificate.addEventListener("click", function (event) {
+
+            event.preventDefault();
+
+            const image =
+                certificate.getAttribute("data-image");
+
+            modalImage.src = image;
+
+            modalTitle.textContent =
+                certificate.getAttribute("data-title");
+
+            modalDate.textContent =
+                certificate.getAttribute("data-date");
+
+            modalDescription.textContent =
+                certificate.getAttribute("data-description");
+
+            modal.classList.add("active");
+
+            document.body.style.overflow = "hidden";
+
+        });
+
+    });
+
+
+    /* ================================
+       CLICK CERTIFICATE TO ENLARGE
+    ================================= */
+
+    modalImage.addEventListener("click", function () {
+
+        fullscreenImage.src = modalImage.src;
+
+        fullscreen.classList.add("active");
+
+    });
+
+
+    /* ================================
+       CLOSE FULLSCREEN IMAGE
+    ================================= */
+
+    fullscreen.addEventListener("click", function () {
+
+        fullscreen.classList.remove("active");
+
+    });
+
+
+    /* ================================
+       CLOSE MAIN MODAL
+    ================================= */
+
+    closeButton.addEventListener("click", function () {
+
+        modal.classList.remove("active");
+
+        document.body.style.overflow = "";
+
+    });
+
+
+    /* ================================
+       CLICK OUTSIDE MAIN MODAL
+    ================================= */
+
+    modal.addEventListener("click", function (event) {
+
+        if (event.target === modal) {
+
+            modal.classList.remove("active");
+
+            document.body.style.overflow = "";
+
+        }
+
+    });
+
+
+    /* ================================
+       ESC KEY
+    ================================= */
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+            /* Close fullscreen first */
+
+            if (fullscreen.classList.contains("active")) {
+
+                fullscreen.classList.remove("active");
+
+                return;
+
+            }
+
+
+            /* Then close main modal */
+
+            if (modal.classList.contains("active")) {
+
+                modal.classList.remove("active");
+
+                document.body.style.overflow = "";
+
+            }
+
+        }
+
+    });
+
+});
+
+</script>
 	</body>
 </html>
